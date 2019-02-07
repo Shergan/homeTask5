@@ -1,13 +1,13 @@
 package com.divashchenko;
 
-public class IntLinkedList implements IntList {
+public class IntLinkedList implements IntList, Stack, Queue {
 
     private class Element {
         private int value;
         private Element next;
         private Element previous;
 
-        public Element(int value) {
+        private Element(int value) {
             this.value = value;
         }
     }
@@ -31,8 +31,66 @@ public class IntLinkedList implements IntList {
         count++;
     }
 
+    @Override
+    public void addFirst(int value) {
+        Element newElement = new Element(value);
+        if (first == null) {
+            first = newElement;
+            last = first;
+        } else {
+            first.previous = newElement;
+            newElement.next = first;
+            first = newElement;
+        }
+        count++;
+    }
+
+    @Override
+    public int peekFirst() {
+        checkFirstElement();
+
+        return first.value;
+    }
+
+    @Override
+    public int removeFirst() {
+        checkFirstElement();
+
+        int tmp = first.value;
+        Element tmpElement = first.next;
+        tmpElement.previous = null;
+        first = tmpElement;
+        count--;
+
+        return tmp;
+
+    }
+
+    @Override
+    public void push(int value) {
+        addFirst(value);
+    }
+
+    @Override
+    public int pull() {
+        return removeFirst();
+    }
+
+    @Override
+    public int peek() {
+        checkFirstElement();
+
+        return first.value;
+    }
+
+    @Override
+    public int poll() {
+        return removeFirst();
+    }
+
     /*    1.1
     public void add(int index, int element) {
+        checkIndexRange(index);
         Element newElement = new Element(element);
         Element tmpElement = findElement(index);
         Element tmpPreviousElement = tmpElement.previous;
@@ -114,19 +172,23 @@ public class IntLinkedList implements IntList {
         }
     }
 
+    private void checkFirstElement() {
+        if (first == null) {
+            throw new IndexOutOfBoundsException("List is empty!");
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
         Element tmpElement = first;
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < count - 1; i++) {
             sb.append(tmpElement.value).append(", ");
             tmpElement = tmpElement.next;
-            if (i == count - 2) {
-                sb.append(tmpElement.value).append("]");
-                break;
-            }
+
         }
+        sb.append(tmpElement.value).append("]");
 
         return sb.toString();
     }

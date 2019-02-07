@@ -37,5 +37,40 @@ public class Main {
         linkedList.clear();
         System.out.println("New size: " + linkedList.size());
         System.out.println("Is empty now? " + linkedList.isEmpty());
+        System.out.println();
+
+
+        // Queue
+        Queue queue = new IntLinkedList();
+        queue.add(20);
+        queue.add(30);
+        queue.add(40);
+
+        System.out.println(queue);
+        System.out.println("Peek: " + queue.peek());
+        System.out.println(queue);
+        System.out.println("Poll: " + queue.poll());
+        System.out.println(queue);
+        System.out.println();
+
+        //Stack
+        Stack stack = new IntLinkedList();
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+
+        System.out.println(stack);
+        System.out.println("Pull stack: " + stack.pull());
+        System.out.println("Pull stack: " + stack.pull());
+        System.out.println(stack);
+
+        System.out.println("Stack addFirst");
+        stack.addFirst(50);
+        System.out.println(stack);
+        System.out.println("Stack peekFirst: " + stack.peekFirst());
+        System.out.println(stack);
+        System.out.println("Stack removeFirst: " + stack.removeFirst());
+        System.out.println(stack);
+
     }
 }
